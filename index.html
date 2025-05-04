@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Türkçe Dil Oyunu</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f9f9f9;
+      max-width: 600px;
+      margin: 50px auto;
+      padding: 20px;
+      border: 2px solid #ccc;
+      border-radius: 10px;
+      background: white;
+    }
+    h2 {
+      color: #333;
+    }
+    .question {
+      margin-bottom: 20px;
+    }
+    .options button {
+      display: block;
+      margin: 8px 0;
+      padding: 10px;
+      width: 100%;
+      font-size: 16px;
+      border-radius: 5px;
+      border: 1px solid #999;
+      cursor: pointer;
+    }
+    .message {
+      margin-top: 10px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <h2>Türkçe Dil Oyunu</h2>
+  <div id="game">
+    <div class="question" id="question"></div>
+    <div class="options" id="options"></div>
+    <div class="message" id="message"></div>
+  </div>
+
+  <script>
+    const questions = [
+      {
+        q: "Yarın ________ gitmek zorunda değiliz çünkü yarın tatil.",
+        options: ["okulda", "okula", "okulu"],
+        answer: "okula"
+      },
+      {
+        q: "_______ çok seviyorum ve iyi ki benim kardeşimsin.",
+        options: ["sene", "sana", "seni"],
+        answer: "seni"
+      },
+      {
+        q: "Bugün _______ film izlemek için geldik.",
+        options: ["buradan", "buraya", "burayı"],
+        answer: "buraya"
+      },
+      {
+        q: "Benim _____ bir şey aldın mı?",
+        options: ["dolabı", "dolabdan", "dolabımdan"],
+        answer: "dolabımdan"
+      },
+      {
+        q: "Geç kaldım ______ yolda çok trafik vardı.",
+        options: ["bu yüzden", "çünkü", "bunun için"],
+        answer: "çünkü"
+      },
+      {
+        q: "Onun ________ yavru bir kedi var.",
+        options: ["evide", "evinde", "evisinde"],
+        answer: "evinde"
+      },
+      {
+        q: "Bu evin konumu bizim _______ çok uzak.",
+        options: ["ofisim", "ofisimize", "ofisimizi"],
+        answer: "ofisimize"
+      },
+      {
+        q: "Bu elbisenin ____  fiyatı ne kadar?",
+        options: ["indirimlik", "indirimli", "indirim"],
+        answer: "indirimli"
+      },
+      {
+        q: "Bu sınıf___ çok seviyoruz çünkü hem aydınlık hem ferah.",
+        options: ["sınıfı", "sınıfında", "sınıftan"],
+        answer: "sınıfı"
+      },
+      {
+        q: "_________ gidiyorsun?",
+        options: ["nereden", "nereye", "nerede"],
+        answer: "nereye"
+      }
+    ];
+
+    let current = 0;
+
+    function showQuestion() {
+      document.getElementById("message").textContent = "";
+      const question = questions[current];
+      document.getElementById("question").textContent = `Soru ${current + 1}: ${question.q}`;
+      const optionsDiv = document.getElementById("options");
+      optionsDiv.innerHTML = "";
+      question.options.forEach(option => {
+        const btn = document.createElement("button");
+        btn.textContent = option;
+        btn.onclick = () => checkAnswer(option);
+        optionsDiv.appendChild(btn);
+      });
+    }
+
+    function checkAnswer(selected) {
+      const correct = questions[current].answer;
+      if (selected === correct) {
+        document.getElementById("message").textContent = "✅ Tebrikler! Doğru cevap.";
+        current++;
+        if (current < questions.length) {
+          setTimeout(showQuestion, 1000);
+        } else {
+          document.getElementById("game").innerHTML = "🎉 Oyunu tamamladın!";
+        }
+      } else {
+        document.getElementById("message").textContent = "❌ Tekrar dene!";
+      }
+    }
+
+    showQuestion();
+  </script>
+</body>
+</html>
